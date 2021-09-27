@@ -294,9 +294,9 @@
         function toggleTrails(){
             trailsVisibles=!trailsVisibles;
 
-            trailTierra.visible=trailsVisibles;
-            trailLuna.visible=trailsVisibles;
-            trailIss.visible=trailsVisibles;           
+            trail1.visible=trailsVisibles;
+            trail2.visible=trailsVisibles;
+            trail3.visible=trailsVisibles;           
 
         }
 
@@ -311,7 +311,7 @@
             $("body").keydown(function(e){
 
                 if (e.key=="c")   toggleCam();
-                if (e.key=="t")   toggleTrails();
+                if (e.key=='t')   toggleTrails();
                 if (e.key=="+")   {
                     speed+=0.1;
                     resetTrails();
@@ -401,13 +401,13 @@
            *********************************************************************************
            */
             // TIERRA
-            const tiempo = 0.1; //de un día -> AUMENTAR ESTA VARIABLE PARA ACELERAR EL RECORRIDO 
+            const Tiempo = 0.1; //de un día -> AUMENTAR ESTA VARIABLE PARA ACELERAR EL RECORRIDO 
             mTierra = mat4.create();
             mOrbita = mat4.create(); //Orbita de la Tierra, me servirá como punto de referencia
             //para el resto de objetos de al escena 
             const radioOrbitaTierra = 60;
             const grados23 = -0.401426;
-            const rotacionAlrededorDelSol = tiempo / 365;
+            const rotacionAlrededorDelSol = Tiempo / 365;
 
             //Orbita de la tierra(usa sen y cos)
             //mat4.translate(mTierra,mTierra,[radioOrbitaTierra*Math.sin(t/100),0,-radioOrbitaTierra*Math.cos(t/100)]);    
@@ -423,10 +423,10 @@
             mat4.rotate(mTierra, mOrbita, grados23, vec3.fromValues(1, 0, 0));
 
             //Giro de la Tierra sobre su propio eje verde
-            mat4.rotate(mTierra, mTierra, t * tiempo, vec3.fromValues(0, 1, 0));
+            mat4.rotate(mTierra, mTierra, t * Tiempo, vec3.fromValues(0, 1, 0));
             
             //Verificando los días que van pasando en al consola 
-            if (t * tiempo > 2 * Math.PI * dias) {
+            if (t * Tiempo > 2 * Math.PI * dias) {
                 dias++;
                 console.log("Es el día: " + dias);
             }
@@ -435,7 +435,7 @@
             // LUNA
             mLuna = mat4.create();
             const radioOrbitaLuna = 25;
-            const rotacionAlrededorDeLaTierra = tiempo / 30; //30 días una vuelta completa
+            const rotacionAlrededorDeLaTierra = Tiempo / 30; //30 días una vuelta completa
 
             mat4.rotate(mLuna, mOrbita, t * rotacionAlrededorDeLaTierra, vec3.fromValues(0, 1, 0));
             mat4.translate(mLuna, mLuna, [radioOrbitaLuna, 0, 0]);
@@ -454,7 +454,7 @@
             // ISS
             mIss = mat4.create();
             const radioOrbitaIss = 10;
-            const rotacionIssAlrededorDeLaTierra = tiempo / 10; //10 días una vuelta completa
+            const rotacionIssAlrededorDeLaTierra = Tiempo / 10; //10 días una vuelta completa
             //Orbita de ISS
             mat4.rotate(mIss, mOrbita, t * rotacionIssAlrededorDeLaTierra, vec3.fromValues(0, 0, 1));
             mat4.translate(mIss, mIss, [radioOrbitaIss, 0, 0]);
